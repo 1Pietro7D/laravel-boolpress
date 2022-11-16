@@ -1,6 +1,6 @@
-@extends('layouts.app')
-{{-- trovi lo yield a riga 76 --}}
+@extends('layouts.dashboard')
+{{-- trovi lo yield a riga 119 --}}
 
 @section('content')
-     ciao
+   miao miao
 @endsection
