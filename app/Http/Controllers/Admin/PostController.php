@@ -50,6 +50,9 @@ class PostController extends Controller
         $request->validate([
             'title' => 'required|min:5|max:255',
             'content' => 'required',
+            'category_id' => 'nullable|exists:categories,id'
+        ], [
+            'category_id.exists' => 'non esiste :('
         ]);
 
         $form_data = $request->all();
