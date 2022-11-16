@@ -3,8 +3,10 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Category;
+// si importa il controller poiche il CategoryController è dentro una cartella
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
+use Illuminate\Support\Str;
 
 class CategoryController extends Controller
 {
@@ -16,6 +18,7 @@ class CategoryController extends Controller
     public function index()
     {
         //
+        return view('admin.home');
     }
 
     /**
