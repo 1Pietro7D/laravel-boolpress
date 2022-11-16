@@ -14,6 +14,7 @@
     <form method="POST" action="{{ route('admin.posts.update', $post->id) }}">
         @csrf
         @method('PATCH')
+        {{-- title --}}
         <div>
             <label for="title">Title:</label>
             <input required maxlength="255" type="text" name="title" value="{{ old('title', $post->title) }}">
@@ -23,6 +24,20 @@
                 </div>
             @enderror
         </div>
+         {{-- categories --}}
+         <div>
+            <label for="category_id">Category:</label>
+            <select name="category_id" id="category_id">
+                <option value="">Nothing</option>
+                @foreach ($categories as $category)
+                    <option value="{{ $category->id }}"
+                        {{ $category->id == old('category_id', $category->id) ? 'selected' : '' }} >
+                        {{ $category->name }}
+                    </option>
+                @endforeach
+            </select>
+        </div>
+        {{-- Content --}}
         <div>
             <label for="content">Content:</label>
             <textarea required name="content" cols="30" rows="10">{{ old('content', $post->content) }}</textarea>
