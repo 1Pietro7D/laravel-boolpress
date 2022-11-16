@@ -13,18 +13,29 @@
     @endif
     <form method="POST" action="{{ route('admin.posts.store') }}">
         @csrf
+        {{-- title --}}
         <div>
             <label for="title">Title:</label>
-            <input required maxlength="255" type="text" name="title" value="{{ old('title') }}">
+            <input required maxlength="255" type="text" name="title" value="{{ old('title', '') }}">
             @error('title')
                 <div class="my-2 bg-danger text-white">
                     {{ $message }}
                 </div>
             @enderror
         </div>
+        {{-- categories --}}
+        <div>
+            <label for="category_id">Category:</label>
+            <select name="category_id" id="category_id">
+                @foreach ($categories as $category)
+                    <option value="{{ $category->id }} "> {{ $category->name }} </option>
+                @endforeach
+            </select>
+        </div>
+        {{-- Content --}}
         <div>
             <label for="content">Content:</label>
-            <textarea required name="content" cols="30" rows="10">{{ old('content') }}</textarea>
+            <textarea required name="content" cols="30" rows="10">{{ old('content', '') }}</textarea>
             @error('content')
                 <div class="my-2 bg-danger text-white">
                     {{ $message }}

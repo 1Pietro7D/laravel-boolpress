@@ -3,9 +3,12 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Post;
+// si importa il controller poiche il PostController è dentro una cartella
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
-
+// importo il modello Category
+use App\Category;
+// importo la libreria Str
 use Illuminate\Support\Str;
 
 class PostController extends Controller
@@ -30,7 +33,9 @@ class PostController extends Controller
     public function create()
     {
         //
-        return view('admin.posts.create');
+        // associo alla variabile tutti i valori importatida riga 10
+        $categories = Category::all();
+        return view('admin.posts.create', compact('categories'));
     }
 
     /**
