@@ -13,14 +13,17 @@ use Illuminate\Support\Facades\Auth;
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
-});
+// Route::get('/', function () {
+//     return view('welcome');
+// });
 
 Auth::routes();
 
 // rotta generata da laravel
 // Route::get('/home', 'HomeController@index')->name('home');
+Route::get('/', function(){
+    return view("guest.home");
+})->name('index');
 
 // middleware è un software che fa da intermediario usando il buon Auth (che viene usato in tutti i file nella cartella Admin)
 Route::middleware('auth')
@@ -32,5 +35,11 @@ Route::middleware('auth')
     ->prefix('admin')
     // al group nel get '/' finiranno tutte le rotte davanti, potrebberò esserci più rotte, per questo il group
     ->group(function(){
-        Route::get('/', 'HomeController@Index')->name('home');
+        Route::get('/', 'HomeController@Index')->name('index'); // non più home perchè il dashboard vuole index
+        // andiamo a connetterci al controller CRUD associato ai posts
+        Route::resource('posts', 'PostController');
     });
+
+Route::get("{any?}", function(){
+    return view("guest.home");
+})->where("any", ".*");
