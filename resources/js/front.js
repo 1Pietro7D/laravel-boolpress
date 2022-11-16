@@ -27,6 +27,9 @@ window.Vue = require("vue");
  * or customize the JavaScript scaffolding to fit your unique needs.
  */
 
+//importiamo il componente App
+import App from './views/App'
 const app = new Vue({
-    el: "#app",
+    el: "#root",
+    render: (h) => h (App), //reiderizziamo su App all'avvio di Vue
 });
