@@ -1,12 +1,22 @@
 @extends('layouts.dashboard')
 
 @section('content')
-    <div class="py-2">
+    <h1 class="py-2">
         Title: {{ $post->title }}
-    </div>
-    <div class="py-2">
+    </h1>
+    <p class="py-2">
         Content: {{ $post->content }}
-    </div>
+    </p>
+    @if( $post->category )
+    <p class="py-2">
+        Category: {{ $post->category->name }}
+    </p>
+    @else
+    <p>
+        Nothing category
+
+    </p>
+    @endif
     <div class="mt-3">
         <a href="{{ route('admin.posts.edit', $post->id) }}">Edit Post</a>
     </div>
