@@ -5,9 +5,11 @@ namespace App\Http\Controllers\Admin;
 use App\Post;
 // si importa il controller poiche il PostController è dentro una cartella
 use App\Http\Controllers\Controller;
+
 use Illuminate\Http\Request;
-// importo il modello Category
+// importo il modello Category e Tag
 use App\Category;
+use App\Tag;
 // importo la libreria Str
 use Illuminate\Support\Str;
 
@@ -35,7 +37,8 @@ class PostController extends Controller
         //
         // associo alla variabile tutti i valori importatida riga 10
         $categories = Category::all();
-        return view('admin.posts.create', compact('categories'));
+        $tags = Tag::all();
+        return view('admin.posts.create', compact(['categories','tags']));
     }
 
     /**
@@ -47,21 +50,21 @@ class PostController extends Controller
     public function store(Request $request)
     {
         //
-        $request->validate([
-            'title' => 'required|min:5|max:255',
-            'content' => 'required',
-            'category_id' => 'nullable|exists:categories,id'
-        ], [
-            'category_id.exists' => 'non esiste :('
-        ]);
+        $this->validatePost($request);
 
         $form_data = $request->all();
         $post = new Post();
         $post->fill($form_data);
 
+
+
         $slug = $this->getSlug($post->title);
         $post->slug = $slug;
         $post->save();
+
+        if(array_key_exists('tags', $form_data)){
+            $post->tags()->sync($form_data['tags']);
+        }
 
         return redirect()->route('admin.posts.show', $post->id);
     }
@@ -88,7 +91,8 @@ class PostController extends Controller
     {
         //
         $categories = Category::all();
-        return view('admin.posts.edit', compact(['post', 'categories']));
+        $tags = Tag::all();
+        return view('admin.posts.edit', compact(['post', 'categories', 'tags']));
     }
 
     /**
@@ -101,18 +105,18 @@ class PostController extends Controller
     public function update(Request $request, Post $post)
     {
         //
-        $request->validate([
-            'title' => 'required|min:5|max:255',
-            'content' => 'required',
-            'category_id' => 'nullable|exists:categories,id'
-        ], [
-            'category_id.exists' => 'non esiste :('
-        ]);
+        $this->validatePost($request);
         $form_data = $request->all();
 
         if ($post->title != $form_data['title']) {
             $slug = $this->getSlug($form_data['title']);
             $form_data['slug'] = $slug;
+        }
+
+        if(array_key_exists('tags', $form_data)){
+            $post->tags()->sync($form_data['tags']);
+        }else{
+            $post->tags()->sync([]);
         }
 
         $post->update($form_data);
@@ -129,6 +133,7 @@ class PostController extends Controller
     public function destroy(Post $post)
     {
         //
+        $post->tags()->sync([]);
         $post->delete();
         return redirect()->route('admin.posts.index');
     }
@@ -146,5 +151,15 @@ class PostController extends Controller
             $existingPost = Post::where('slug', $slug)->first();
         }
         return $slug;
+    }
+    private function validatePost(Request $request){
+        $request->validate([
+            'title' => 'required|min:5|max:255',
+            'content' => 'required',
+            'category_id' => 'nullable|exists:categories,id',
+            'tags' => 'exists:tags,id'
+        ], [
+            'category_id.exists' => 'non esiste :('
+        ]);
     }
 }
