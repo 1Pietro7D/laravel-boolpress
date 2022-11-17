@@ -43,7 +43,19 @@
                 </div>
             @enderror
         </div>
+         {{-- Tags --}}
+         <div>
+            <h3>Tags:</h3>
+            @foreach ($tags as $tag)
+                <label for="tags[]">{{ $tag->name }}</label>
+                <input
+                {{ in_array($tag->id, old('tags', [])) ? 'checked' : '' }}
+                type="checkbox" name="tags[]" id="tags[]" value="{{ $tag->id }}">
+            @endforeach
+        </div>
+        {{-- submit --}}
         <input type="submit" value="Create">
+
     </form>
     <div class="mt-5">
         <a href="{{ route('admin.posts.index') }}">BACK TO THE POSTS LIST</a>

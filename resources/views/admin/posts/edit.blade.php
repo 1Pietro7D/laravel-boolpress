@@ -47,6 +47,46 @@
                 </div>
             @enderror
         </div>
+
+         {{-- Tags --}}
+         @if ($errors->any())
+         <div>
+            <h3>Tags:</h3>
+            @foreach ($tags as $tag)
+                <label for="tags[]">{{ $tag->name }}</label>
+                <input
+                {{ in_array($tag->id, old('tags', [])) ? 'checked' : '' }}
+                type="checkbox" name="tags[]" id="tags[]" value="{{ $tag->id }}">
+            @endforeach
+        </div>
+        @else
+        <div>
+            <h3>Tags:</h3>
+            @foreach ($tags as $tag)
+                <label for="tags[]">{{ $tag->name }}</label>
+                <input
+                {{ $post->tags->contains($tag) ? 'checked' : '' }}
+                type="checkbox" name="tags[]" id="tags[]" value="{{ $tag->id }}">
+            @endforeach
+        </div>
+        @endif
+        {{-- versione alternativa --}}
+        {{-- <div>
+            <h3>Tags:</h3>
+            @foreach ($tags as $tag)
+                <label for="tags[]">{{ $tag->name }}</label>
+                @if($errors->any())
+                <input
+                {{ in_array($tag->id, old('tags', [])) ? 'checked' : '' }}
+                type="checkbox" name="tags[]" id="tags[]" value="{{ $tag->id }}">
+                @else
+                <input
+                {{ $post->tags->contains($tag) ? 'checked' : '' }}
+                type="checkbox" name="tags[]" id="tags[]" value="{{ $tag->id }}">
+                @endif
+            @endforeach
+        </div> --}}
+
         <input type="submit" value="Apply changes">
     </form>
     <div class="mt-5">

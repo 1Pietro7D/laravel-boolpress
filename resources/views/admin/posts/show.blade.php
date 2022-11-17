@@ -14,8 +14,13 @@
     @else
     <p>
         Nothing category
-
     </p>
+    <div>
+        Tags:
+        @foreach ($post->tags as $tag)
+            <span>{{ $tag->name }}</span>
+        @endforeach
+    </div>
     @endif
     <div class="mt-3">
         <a href="{{ route('admin.posts.edit', $post->id) }}">Edit Post</a>
