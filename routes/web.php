@@ -38,6 +38,8 @@ Route::middleware('auth')
         Route::get('/', 'HomeController@Index')->name('index'); // non più home perchè il dashboard vuole index
         // andiamo a connetterci al controller CRUD associato ai posts
         Route::resource('posts', 'PostController');
+        // andiamo a connetterci al controller CRUD associato alle categories
+        Route::resource('categories', 'CategoryController');
     });
 
 Route::get("{any?}", function(){
