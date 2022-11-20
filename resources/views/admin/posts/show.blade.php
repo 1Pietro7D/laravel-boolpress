@@ -19,14 +19,14 @@
     <div>
         Tags:
         @foreach ($post->tags as $tag)
-            <span>{{ $tag->name . ' ' }}</span>
+            <span>{{ $tag->name }}</span>
         @endforeach
     </div>
     <div class="mt-3">
-        <a href="{{ route('admin.posts.edit', $post->id) }}">Edit Post</a>
+        <a href="{{ route('admin.posts.edit', $post->slug) }}">Edit Post</a>
     </div>
     <div>
-        <form class="mt-3" method="POST" action="{{ route('admin.posts.destroy', $post->id) }}">
+        <form class="mt-3" method="POST" action="{{ route('admin.posts.destroy', $post->slug) }}">
             @csrf
             @method('DELETE')
             <input onclick="return confirm('Do you really want to delete this post?')" type="submit" value="Delete">
