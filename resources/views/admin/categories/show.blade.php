@@ -10,7 +10,7 @@
 
     @endforeach
     <div class="mt-3">
-        <a href="{{ route('admin.categories.edit', $category->id) }}">Edit Category</a>
+        <a href="{{ route('admin.categories.edit', $category->slug) }}">Edit Category</a>
     </div>
     <div class="mt-5">
         <a href="{{ route('admin.categories.index') }}">BACK TO THE CATEGORIES LIST</a>

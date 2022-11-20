@@ -54,7 +54,7 @@ class CategoryController extends Controller
         $category->slug = $slug;
         $category->save();
 
-        return redirect()->route('admin.categories.show', $category->id);
+        return redirect()->route('admin.categories.show', $category->slug);
     }
 
     /**
@@ -62,18 +62,18 @@ class CategoryController extends Controller
      *
      * @param  \App\Category  $category
      * @return \Illuminate\Http\Response
-     */
+     *//*
      public function show(Category $category)
     {
         //
         return view('admin.categories.show', compact('category'));
-     } /*
+     } */
      public function show($slug)
     {
         //
         $category = Category::where('slug', $slug)->first();
         return view('admin.categories.show', compact('category'));
-     }*/
+     }
     /**
      * Show the form for editing the specified resource.
      *
@@ -84,19 +84,19 @@ class CategoryController extends Controller
     {
         //
         return view('admin.categories.edit', compact('category'));
-    }*/
+    }*//*
      public function edit($id)
     {
         //
         $category = Category::find($id);
         return view('admin.categories.edit', compact('category'));
-    } /*
+    } */
     public function edit($slug)
     {
         //
         $category = Category::where('slug', $slug)->first();
         return view('admin.categories.edit', compact('category'));
-    }*/
+    }
 
     /**
      * Update the specified resource in storage.
@@ -120,7 +120,7 @@ class CategoryController extends Controller
 
         $category->update($form_data);
 
-        return redirect()->route('admin.categories.show', $category->id);
+        return redirect()->route('admin.categories.show', $category->slug);
     }
 
     /**
