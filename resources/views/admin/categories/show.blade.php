@@ -16,7 +16,7 @@
         <a href="{{ route('admin.categories.index') }}">BACK TO THE CATEGORIES LIST</a>
     </div>
     <div>
-        <form class="mt-3" method="POST" action="{{ route('admin.categories.destroy', $category->id) }}">
+        <form class="mt-3" method="POST" action="{{ route('admin.categories.destroy', $category->slug) }}">
             @csrf
             @method('DELETE')
             <input onclick="return confirm('Do you really want to delete this category?')" type="submit" value="Delete">

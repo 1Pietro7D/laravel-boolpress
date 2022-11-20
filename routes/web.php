@@ -39,7 +39,7 @@ Route::middleware('auth')
         // andiamo a connetterci al controller CRUD associato ai posts
         Route::resource('posts', 'PostController');
         // andiamo a connetterci al controller CRUD associato alle categories
-        Route::resource('categories', 'CategoryController');
+        Route::resource('categories', 'CategoryController')->parameters(['categories'=>'category:slug']);
     });
 
 Route::get("{any?}", function(){
