@@ -11,7 +11,7 @@
             </ul>
         </div>
     @endif
-    <form method="POST" action="{{ route('admin.posts.update', $post->id) }}">
+    <form method="P" action="{{ route('admin.posts.update', $post->id) }}">
         @csrf
         @method('PATCH')
         {{-- title --}}
