@@ -132,8 +132,9 @@ class PostController extends Controller
      */
     public function destroy(Post $post)
     {
-        //
+        //eliminiamo le relazioni dei tags con il post
         $post->tags()->sync([]);
+        //eliminiamo ora il post
         $post->delete();
         return redirect()->route('admin.posts.index');
     }
