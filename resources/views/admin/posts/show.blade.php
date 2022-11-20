@@ -17,6 +17,9 @@
     </p>
     @endif
     <div>
+        <img src="{{ asset('storage/' . $post->cover_path) }}" alt="{{ $post->title }}">
+    </div>
+    <div>
         Tags:
         @foreach ($post->tags as $tag)
             <span>{{ $tag->name }}</span>

@@ -12,7 +12,8 @@ use App\Category;
 use App\Tag;
 // importo la libreria Str
 use Illuminate\Support\Str;
-
+//importo lo storage
+use Illuminate\Support\Facades\Storage;
 class PostController extends Controller
 {
     /**
@@ -52,9 +53,16 @@ class PostController extends Controller
         //
         $this->validatePost($request);
 
+
         $form_data = $request->all();
+        if (array_key_exists('image', $form_data)) {
+            $cover_path = Storage::put('post_covers', $form_data['image']);
+            $form_data['cover_path'] = $cover_path;
+        }
         $post = new Post();
         $post->fill($form_data);
+
+
 
         $slug = $this->getSlug($post->title);
         $post->slug = $slug;
@@ -117,7 +125,13 @@ class PostController extends Controller
         }else{
             $post->tags()->sync([]);
         }
-
+        if (array_key_exists('image', $form_data)) {
+            if ($post->cover_path) {
+                Storage::delete($post->cover_path);
+            }
+            $cover_path = Storage::put('post_covers', $form_data['image']);
+            $form_data['cover_path'] = $cover_path;
+        }
         $post->update($form_data);
         return redirect()->route('admin.posts.show', $post->slug);
         // ADRIANO è STATO COSTRETTO A FARE COSì PERCHè NON GLI AGGIORNAVA LO SLUG // perchè la latenza è troppa
@@ -132,7 +146,10 @@ class PostController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function destroy(Post $post)
-    {
+    {   //elimino eventualmente l'immagine
+        if ($post->cover_path) {
+            Storage::delete($post->cover_path);
+        }
         //eliminiamo le relazioni dei tags con il post
         $post->tags()->sync([]);
         //eliminiamo ora il post
@@ -159,7 +176,8 @@ class PostController extends Controller
             'title' => 'required|min:5|max:255',
             'content' => 'required',
             'category_id' => 'nullable|exists:categories,id',
-            'tags' => 'exists:tags,id'
+            'tags' => 'exists:tags,id',
+            'image' => 'nullable|image|max:3072'
         ], [
             'category_id.exists' => 'non esiste :('
         ]);

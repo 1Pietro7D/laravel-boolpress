@@ -11,7 +11,7 @@
             </ul>
         </div>
     @endif
-    <form method="POST" action="{{ route('admin.posts.store') }}">
+    <form method="POST" action="{{ route('admin.posts.store') }}" enctype="multipart/form-data">
         @csrf
         {{-- title --}}
         <div>
@@ -43,8 +43,13 @@
                 </div>
             @enderror
         </div>
-         {{-- Tags --}}
-         <div>
+        {{-- image --}}
+        <div>
+            <label for="image">Image:</label>
+            <input type="file" name="image">
+        </div>
+        {{-- Tags --}}
+        <div>
             <h3>Tags:</h3>
             @foreach ($tags as $tag)
                 <input
