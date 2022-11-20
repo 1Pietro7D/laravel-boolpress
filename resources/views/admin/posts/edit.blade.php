@@ -53,20 +53,20 @@
          <div>
             <h3>Tags:</h3>
             @foreach ($tags as $tag)
-                <label for="tags[]">{{ $tag->name }}</label>
                 <input
                 {{ in_array($tag->id, old('tags', [])) ? 'checked' : '' }}
                 type="checkbox" name="tags[]" id="tags[]" value="{{ $tag->id }}">
+                <label for="tags[]">{{ $tag->name }}</label>
             @endforeach
         </div>
         @else
         <div>
             <h3>Tags:</h3>
             @foreach ($tags as $tag)
-                <label for="tags[]">{{ $tag->name }}</label>
                 <input
                 {{ $post->tags->contains($tag) ? 'checked' : '' }}
                 type="checkbox" name="tags[]" id="tags[]" value="{{ $tag->id }}">
+                <label for="tags[]">{{ $tag->name }}</label>
             @endforeach
         </div>
         @endif
