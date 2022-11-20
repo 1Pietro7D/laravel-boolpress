@@ -35,7 +35,7 @@ class PostController extends Controller
     public function create()
     {
         //
-        // associo alla variabile tutti i valori importatida riga 10
+        // associo alla variabile tutti i valori importatida riga 11
         $categories = Category::all();
         $tags = Tag::all();
         return view('admin.posts.create', compact(['categories','tags']));
@@ -56,10 +56,9 @@ class PostController extends Controller
         $post = new Post();
         $post->fill($form_data);
 
-
-
         $slug = $this->getSlug($post->title);
         $post->slug = $slug;
+
         $post->save();
 
         if(array_key_exists('tags', $form_data)){
@@ -107,7 +106,7 @@ class PostController extends Controller
         //
         $this->validatePost($request);
         $form_data = $request->all();
-
+         //qui aggiorniamo lo slug se il titolo è diverso
         if ($post->title != $form_data['title']) {
             $slug = $this->getSlug($form_data['title']);
             $form_data['slug'] = $slug;
