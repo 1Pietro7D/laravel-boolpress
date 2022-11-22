@@ -13,7 +13,12 @@ use Illuminate\Support\Facades\Route;
 | is assigned the "api" middleware group. Enjoy building your API!
 |
 */
+// questo serve per autenticare l'user... per il momento lo teniamo disabilitato
+/* Route::middleware('auth:api')->get('/user', function (Request $request) {
+//     return $request->user();
+ }); */
 
-Route::middleware('auth:api')->get('/user', function (Request $request) {
-    return $request->user();
-});
+// Route::resource('posts', 'Api\PostController');
+// andiamo a connetterci al controller CRUD associato ai posts
+Route::get('/posts', 'Api\PostController@index');
+// questa rotta richiama il singolo index nel controller
