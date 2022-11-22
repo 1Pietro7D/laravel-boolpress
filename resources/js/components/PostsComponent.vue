@@ -2,7 +2,7 @@
 <div>
     <div v-if="loading">Loading</div>
     <div v-else-if="errorMessage != null">{{errorMessage}}</div>
-    <PostListComponent v-else :posts="posts" @clickedPost="showPost" />
+    <PostListComponent v-else :postList="posts" @clickedPost="showPost" />
 </div>
 </template>
 

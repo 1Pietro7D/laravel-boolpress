@@ -1911,7 +1911,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony default export */ __webpack_exports__["default"] = ({
   name: 'PostListComponent',
   props: {
-    posts: Array
+    postList: Array
   },
   methods: {
     showPost: function showPost(id) {
@@ -2016,7 +2016,7 @@ __webpack_require__.r(__webpack_exports__);
 var render = function render() {
   var _vm = this,
     _c = _vm._self._c;
-  return _c("div", _vm._l(_vm.posts, function (post) {
+  return _c("div", _vm._l(_vm.postList, function (post) {
     return _c("div", {
       key: post.id
     }, [_c("span", {
@@ -2050,7 +2050,7 @@ var render = function render() {
     _c = _vm._self._c;
   return _c("div", [_vm.loading ? _c("div", [_vm._v("Loading")]) : _vm.errorMessage != null ? _c("div", [_vm._v(_vm._s(_vm.errorMessage))]) : _c("PostListComponent", {
     attrs: {
-      posts: _vm.posts
+      postList: _vm.posts
     },
     on: {
       clickedPost: _vm.showPost

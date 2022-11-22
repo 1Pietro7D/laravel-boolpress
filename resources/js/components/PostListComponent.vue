@@ -1,6 +1,6 @@
 <template>
   <div>
-    <div v-for="post in posts" :key="post.id">
+    <div v-for="post in postList" :key="post.id">
         <span @click="showPost(post.id)" >{{ post.title }}</span>
     </div>
   </div>
@@ -10,7 +10,7 @@
 export default {
     name: 'PostListComponent',
     props:{
-        posts: Array
+        postList: Array
     },
     methods: {
         showPost(id){
