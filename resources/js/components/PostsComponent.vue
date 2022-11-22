@@ -9,7 +9,12 @@
 </template>
 
 <script>
+
+import PostComponent from './PostComponent.vue'
+import PostListComponent from './PostComponent.vue'
+
 export default {
+    name:'PostsComponent',
     data() {
         return{
             posts:[],
