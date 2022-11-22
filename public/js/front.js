@@ -1915,7 +1915,7 @@ __webpack_require__.r(__webpack_exports__);
   },
   methods: {
     showPost: function showPost(id) {
-      this.emit('clickedPost', id);
+      this.$emit('clickedPost', id);
     }
   }
 });

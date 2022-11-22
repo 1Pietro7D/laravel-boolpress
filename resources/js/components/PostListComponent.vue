@@ -14,9 +14,9 @@ export default {
     },
     methods: {
         showPost(id){
-            this.emit('clickedPost', id)
+           this.$emit('clickedPost', id)
         }
-    },
+    }
 }
 </script>
 
