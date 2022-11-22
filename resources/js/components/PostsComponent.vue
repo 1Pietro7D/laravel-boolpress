@@ -2,19 +2,21 @@
 <div>
     <div v-if="loading">Loading</div>
     <div v-else-if="errorMessage != null">{{errorMessage}}</div>
-    <div v-else v-for="post in posts" :key="post.id">
-     <span @click="showPost(post.id)" >{{ post.title }}</span>
-    </div>
+    <PostListComponent v-else :posts="posts" @clickedPost="showPost" />
 </div>
 </template>
 
 <script>
 
-import PostComponent from './PostComponent.vue'
-import PostListComponent from './PostComponent.vue'
+// import PostComponent from './PostComponent.vue'
+import PostListComponent from './PostListComponent.vue'
 
 export default {
     name:'PostsComponent',
+    components:{
+        // PostComponent,
+        PostListComponent
+    },
     data() {
         return{
             posts:[],
@@ -33,7 +35,10 @@ export default {
             }
             this.loading = false;
         })
-        .catch()
+        .catch( e=>{
+                console.log('errore', e);
+                this.loading = false;
+            })
     },
     methods: {
         showPost(id){
