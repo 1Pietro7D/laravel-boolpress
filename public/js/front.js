@@ -1919,7 +1919,7 @@ __webpack_require__.r(__webpack_exports__);
   mounted: function mounted() {
     var _this = this;
     console.log('miao');
-    axios.get('/api/posts').then(function (_ref) {
+    axios.get('api/posts').then(function (_ref) {
       var data = _ref.data;
       if (data.success) {
         _this.posts = data.results;
@@ -1931,7 +1931,17 @@ __webpack_require__.r(__webpack_exports__);
   },
   methods: {
     showPost: function showPost(id) {
+      var _this2 = this;
       console.log(id + "bravo");
+      this.loading = true;
+      axios.get('api/posts/' + id).then(function (_ref2) {
+        var data = _ref2.data;
+        console.log(data.result);
+        _this2.loading = false;
+      })["catch"](function (e) {
+        console.log('errore', e);
+        _this2.loading = false;
+      });
     }
   }
 });

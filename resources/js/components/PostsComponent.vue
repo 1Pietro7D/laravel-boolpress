@@ -19,7 +19,7 @@ export default {
     },
     mounted(){
         console.log('miao')
-        axios.get('/api/posts')
+        axios.get('api/posts')
         .then(({data})=>{
             if(data.success){
             this.posts= data.results
@@ -33,7 +33,17 @@ export default {
     methods: {
         showPost(id){
             console.log(id + "bravo")
-        }
+            this.loading= true;
+            axios.get('api/posts/' + id)
+            .then(({data})=>{
+                console.log(data.result);
+                this.loading = false;
+            })
+            .catch( e=>{
+                console.log('errore', e);
+                this.loading = false;
+            })
+            }
     },
 }
 </script>
