@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Api;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Post;
+use Error;
 
 class PostController extends Controller
 {
@@ -16,8 +17,19 @@ class PostController extends Controller
     public function index()
     {
         //
-        $posts = Post::all();
-        return response()->json($posts);
+        try{
+            $posts = Post::all();
+            $data = [
+                'results' => $posts,
+                'success' => true
+            ];
+        }catch(Error $e){
+            $data = [
+                'error' => $e->message,
+                'success' => false
+            ];
+    }
+        return response()->json($data);
     }
 
     /**
