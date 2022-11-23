@@ -5,9 +5,9 @@
     </div>
     <!-- controller page -->
     <div class="my-2">
-        <button @click="goToPage(postPageList.prev_page_url)">Previous page</button>
+        <button :class="{ 'disable' : !postPageList.prev_page_url }" @click="goToPage(postPageList.prev_page_url)">Previous page</button>
         <span>{{ currentPage }}/{{ totalPages }}</span>
-        <button @click="goToPage(postPageList.next_page_url)">Next page</button>
+        <button :class="{ 'disable' : !postPageList.next_page_url }" @click="goToPage(postPageList.next_page_url)">Next page</button>
     </div>
   </div>
   <div v-else>Nothing post</div>
@@ -45,5 +45,8 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-
+    button.disable{
+        opacity: 0.5;
+        pointer-events: none;
+    }
 </style>
