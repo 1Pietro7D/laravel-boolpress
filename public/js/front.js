@@ -1933,12 +1933,29 @@ __webpack_require__.r(__webpack_exports__);
 __webpack_require__.r(__webpack_exports__);
 /* harmony default export */ __webpack_exports__["default"] = ({
   name: 'PostListComponent',
+  // quando un dato deriva direttamente da un altro si usa il computed property per una questione di performance
+  // nella computed ci vanno delle funzioni ma che vengono implementate come se fosserò delle variabili
+  computed: {
+    postList: function postList() {
+      return this.postPageList.data;
+    },
+    currentPage: function currentPage() {
+      return this.postPageList.current_page;
+    },
+    totalPages: function totalPages() {
+      console.log(this.postPageList);
+      return Math.ceil(this.postPageList.total / this.postPageList.per_page);
+    }
+  },
   props: {
-    postList: Array
+    postPageList: Object
   },
   methods: {
     showPost: function showPost(id) {
       this.$emit('clickedPost', id);
+    },
+    goToPage: function goToPage(url) {
+      this.$emit('requestPage', url);
     }
   }
 });
@@ -1966,29 +1983,33 @@ __webpack_require__.r(__webpack_exports__);
   },
   data: function data() {
     return {
-      posts: [],
+      posts: undefined,
+      //perchè contiene un oggetto con lista e le informazioni sulla pag di dati (pag corrente, tot pag)
       detail: null,
       errorMessage: null,
       loading: true
     };
   },
   mounted: function mounted() {
-    var _this = this;
-    console.log('miao');
-    axios.get('api/posts').then(function (_ref) {
-      var data = _ref.data;
-      if (data.success) {
-        _this.posts = data.results;
-      } else {
-        _this.errorMessage = data.error;
-      }
-      _this.loading = false;
-    })["catch"](function (e) {
-      console.log('errore', e);
-      _this.loading = false;
-    });
+    this.loadPage('api/posts');
   },
   methods: {
+    loadPage: function loadPage(url) {
+      var _this = this;
+      axios.get(url).then(function (_ref) {
+        var data = _ref.data;
+        if (data.success) {
+          console.log(data.result);
+          _this.posts = data.results;
+        } else {
+          _this.errorMessage = data.error;
+        }
+        _this.loading = false;
+      })["catch"](function (e) {
+        console.log('errore', e);
+        _this.loading = false;
+      });
+    },
     showPost: function showPost(id) {
       var _this2 = this;
       console.log(id + "bravo");
@@ -2076,7 +2097,7 @@ __webpack_require__.r(__webpack_exports__);
 var render = function render() {
   var _vm = this,
     _c = _vm._self._c;
-  return _c("div", _vm._l(_vm.postList, function (post) {
+  return _vm.postList.length > 0 ? _c("div", [_vm._l(_vm.postList, function (post) {
     return _c("div", {
       key: post.id
     }, [_c("span", {
@@ -2086,7 +2107,21 @@ var render = function render() {
         }
       }
     }, [_vm._v(_vm._s(post.title))])]);
-  }), 0);
+  }), _vm._v(" "), _c("div", {
+    staticClass: "my-2"
+  }, [_c("button", {
+    on: {
+      click: function click($event) {
+        return _vm.goToPage(_vm.postPageList.prev_page_url);
+      }
+    }
+  }, [_vm._v("Previous page")]), _vm._v(" "), _c("span", [_vm._v(_vm._s(_vm.currentPage) + "/" + _vm._s(_vm.totalPages))]), _vm._v(" "), _c("button", {
+    on: {
+      click: function click($event) {
+        return _vm.goToPage(_vm.postPageList.next_page_url);
+      }
+    }
+  }, [_vm._v("Next page")])])], 2) : _c("div", [_vm._v("Nothing post")]);
 };
 var staticRenderFns = [];
 render._withStripped = true;
@@ -2110,10 +2145,11 @@ var render = function render() {
     _c = _vm._self._c;
   return _c("div", [_vm.loading ? _c("div", [_vm._v("Loading")]) : _vm.errorMessage != null ? _c("div", [_vm._v(_vm._s(_vm.errorMessage))]) : _vm.detail == null ? _c("PostListComponent", {
     attrs: {
-      postList: _vm.posts
+      postPageList: _vm.posts
     },
     on: {
-      clickedPost: _vm.showPost
+      clickedPost: _vm.showPost,
+      requestPage: _vm.loadPage
     }
   }) : _c("PostComponent", {
     attrs: {

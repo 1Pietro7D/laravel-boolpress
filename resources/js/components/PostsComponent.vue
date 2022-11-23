@@ -2,7 +2,7 @@
 <div>
     <div v-if="loading">Loading</div>
     <div v-else-if="errorMessage != null">{{errorMessage}}</div>
-    <PostListComponent v-else-if="detail == null" :postList="posts" @clickedPost="showPost" />
+    <PostListComponent v-else-if="detail == null" :postPageList="posts" @clickedPost="showPost" @requestPage="loadPage" />
     <PostComponent v-else :post="detail" @clickedReturnList="returnList"/>
 </div>
 </template>
@@ -20,29 +20,33 @@ export default {
     },
     data() {
         return{
-            posts:[],
+            posts:undefined, //perchè contiene un oggetto con lista e le informazioni sulla pag di dati (pag corrente, tot pag)
             detail:null,
             errorMessage: null,
             loading: true
         }
     },
     mounted(){
-        console.log('miao')
-        axios.get('api/posts')
-        .then(({data})=>{
-            if(data.success){
-            this.posts= data.results
-            }else{
-                this.errorMessage = data.error
-            }
-            this.loading = false;
-        })
-        .catch( e=>{
-                console.log('errore', e);
-                this.loading = false;
-            })
+        this.loadPage('api/posts')
     },
     methods: {
+        loadPage(url){
+            axios.get(url)
+            .then(({data})=>{
+                if(data.success){
+                    console.log(data.result);
+                    this.posts= data.results
+                }else{
+                    this.errorMessage = data.error
+                }
+                this.loading = false;
+            })
+            .catch( e=>{
+                    console.log('errore', e);
+                    this.loading = false;
+                })
+        },
+
         showPost(id){
             console.log(id + "bravo")
             this.loading= true;
