@@ -2,24 +2,26 @@
 <div>
     <div v-if="loading">Loading</div>
     <div v-else-if="errorMessage != null">{{errorMessage}}</div>
-    <PostListComponent v-else :postList="posts" @clickedPost="showPost" />
+    <PostListComponent v-else-if="detail == null" :postList="posts" @clickedPost="showPost" />
+    <PostComponent v-else :post="detail" />
 </div>
 </template>
 
 <script>
 
-// import PostComponent from './PostComponent.vue'
+import PostComponent from './PostComponent.vue'
 import PostListComponent from './PostListComponent.vue'
 
 export default {
     name:'PostsComponent',
     components:{
-        // PostComponent,
+        PostComponent,
         PostListComponent
     },
     data() {
         return{
             posts:[],
+            detail:null,
             errorMessage: null,
             loading: true
         }
@@ -47,6 +49,7 @@ export default {
             axios.get('api/posts/' + id)
             .then(({data})=>{
                 console.log(data.result);
+                this.detail=data.result;
                 this.loading = false;
             })
             .catch( e=>{
