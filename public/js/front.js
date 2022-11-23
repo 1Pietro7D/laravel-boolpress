@@ -1912,6 +1912,11 @@ __webpack_require__.r(__webpack_exports__);
   name: "PostComponent",
   props: {
     post: Object
+  },
+  methods: {
+    returnList: function returnList() {
+      this.$emit('clickedReturnList', true);
+    }
   }
 });
 
@@ -1997,6 +2002,11 @@ __webpack_require__.r(__webpack_exports__);
         console.log('errore', e);
         _this2.loading = false;
       });
+    },
+    returnList: function returnList(confirm) {
+      if (confirm) {
+        this.detail = null;
+      }
     }
   }
 });
@@ -2039,7 +2049,10 @@ var render = function render() {
     _c = _vm._self._c;
   return _c("div", [_c("h2", [_vm._v(_vm._s(_vm.post.title))]), _vm._v(" "), _c("p", [_vm._v(_vm._s(_vm.post.content))]), _vm._v(" "), _c("a", {
     attrs: {
-      href: "\\"
+      href: ""
+    },
+    on: {
+      click: _vm.returnList
     }
   }, [_vm._v("Back")])]);
 };
@@ -2105,6 +2118,9 @@ var render = function render() {
   }) : _c("PostComponent", {
     attrs: {
       post: _vm.detail
+    },
+    on: {
+      clickedReturnList: _vm.returnList
     }
   })], 1);
 };

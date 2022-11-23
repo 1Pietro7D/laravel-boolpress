@@ -2,7 +2,7 @@
     <div>
       <h2>{{post.title}}</h2>
       <p>{{post.content}}</p>
-      <a href="\">Back</a>
+      <a href="" @click="returnList">Back</a>
     </div>
   </template>
 
@@ -11,6 +11,11 @@
       name: "PostComponent",
       props:{
           post: Object
+      },
+      methods: {
+        returnList(){
+            this.$emit('clickedReturnList', true)
+        }
       }
   }
   </script>

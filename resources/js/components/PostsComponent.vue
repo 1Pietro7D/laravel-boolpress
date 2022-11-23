@@ -3,7 +3,7 @@
     <div v-if="loading">Loading</div>
     <div v-else-if="errorMessage != null">{{errorMessage}}</div>
     <PostListComponent v-else-if="detail == null" :postList="posts" @clickedPost="showPost" />
-    <PostComponent v-else :post="detail" />
+    <PostComponent v-else :post="detail" @clickedReturnList="returnList"/>
 </div>
 </template>
 
@@ -56,7 +56,12 @@ export default {
                 console.log('errore', e);
                 this.loading = false;
             })
+            },
+        returnList(confirm){
+            if (confirm) {
+                this.detail= null;
             }
+        }
     },
 }
 </script>
