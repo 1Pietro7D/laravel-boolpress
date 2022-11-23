@@ -18,7 +18,7 @@ use Illuminate\Support\Facades\Route;
 //     return $request->user();
  }); */
 
-Route::resource('posts', 'Api\PostController');
+Route::resource('posts', 'Api\PostController', ['only'=>['index','show']]);
 // andiamo a connetterci al controller CRUD associato ai posts
 // Route::get('/posts', 'Api\PostController@index');
 // questa rotta richiama il singolo index nel controller
