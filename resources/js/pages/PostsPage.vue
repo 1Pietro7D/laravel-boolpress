@@ -13,7 +13,7 @@ import PostComponent from '../components/PostComponent.vue'
 import PostListComponent from '../components/PostListComponent.vue'
 
 export default {
-    name:'PostsComponent',
+    name:'PostsPage',
     components:{
         PostComponent,
         PostListComponent

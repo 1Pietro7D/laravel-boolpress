@@ -6,14 +6,14 @@
 </template>
 
 <script>
-import PostsComponent from '../pages/PostsComponent.vue';
+import PostsPage from '../pages/PostsPage.vue';
 import NotFoundComponent from '../pages/NotFoundComponent.vue';
 import NavComponent from '../components/NavComponent.vue';
 
 export default {
      name:'App',
      components: {
-        PostsComponent,
+        PostsPage,
         NotFoundComponent,
         NavComponent
 
