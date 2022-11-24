@@ -18,7 +18,7 @@ use Illuminate\Support\Facades\Route;
 //     return $request->user();
  }); */
 
-Route::resource('posts', 'Api\PostController', ['only'=>['index','show']]);
-// andiamo a connetterci al controller CRUD associato ai posts
+Route::resource('posts', 'Api\PostController', ['only'=>['index','show']], ['except'=>['edit','update','create','store','destroy']]);
+// andiamo a connetterci al controller CRUD associato ai posts -- basta solo only o except, l'ho messo a scopo didattico
 // Route::get('/posts', 'Api\PostController@index');
 // questa rotta richiama il singolo index nel controller
