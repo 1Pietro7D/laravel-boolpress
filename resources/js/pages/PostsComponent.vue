@@ -9,8 +9,8 @@
 
 <script>
 
-import PostComponent from './PostComponent.vue'
-import PostListComponent from './PostListComponent.vue'
+import PostComponent from '../components/PostComponent.vue'
+import PostListComponent from '../components/PostListComponent.vue'
 
 export default {
     name:'PostsComponent',
