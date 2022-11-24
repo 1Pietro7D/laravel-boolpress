@@ -9,6 +9,7 @@ const router = new VueRouter({
     routes: [
       // dynamic segments start with a colon
       { path: '/', name: 'home', component: PostsComponent },
+      //questa rotta va tenuta sempre per ultima..
       { path: '/*', name: 'NotFound', component: NotFoundComponent }
     ]
   });
