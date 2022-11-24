@@ -1909,7 +1909,10 @@ module.exports = {
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony default export */ __webpack_exports__["default"] = ({
-  name: "NavComponent"
+  name: "NavComponent",
+  props: {
+    navList: Array
+  }
 });
 
 /***/ }),
@@ -2111,6 +2114,20 @@ __webpack_require__.r(__webpack_exports__);
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   name: 'App',
+  data: function data() {
+    return {
+      nav: [{
+        label: 'home',
+        path: '/'
+      }, {
+        label: 'about',
+        path: '/about'
+      }, {
+        label: 'contacts',
+        path: '/contacts'
+      }]
+    };
+  },
   components: {
     PostsPage: _pages_PostsPage_vue__WEBPACK_IMPORTED_MODULE_0__["default"],
     NotFoundComponent: _pages_NotFoundComponent_vue__WEBPACK_IMPORTED_MODULE_1__["default"],
@@ -2136,19 +2153,15 @@ var render = function render() {
     _c = _vm._self._c;
   return _c("nav", [_c("ul", {
     staticClass: "d-flex gap-2"
-  }, [_c("li", [_c("router-link", {
-    attrs: {
-      to: "/"
-    }
-  }, [_vm._v("Home")])], 1), _vm._v(" "), _c("li", [_c("router-link", {
-    attrs: {
-      to: "/about"
-    }
-  }, [_vm._v("About")])], 1), _vm._v(" "), _c("li", [_c("router-link", {
-    attrs: {
-      to: "/contacts"
-    }
-  }, [_vm._v("Contacts")])], 1)])]);
+  }, _vm._l(_vm.navList, function (link, i) {
+    return _c("li", {
+      key: i
+    }, [_c("router-link", {
+      attrs: {
+        to: link.path
+      }
+    }, [_vm._v(_vm._s(link.label))])], 1);
+  }), 0)]);
 };
 var staticRenderFns = [];
 render._withStripped = true;
@@ -2358,7 +2371,11 @@ __webpack_require__.r(__webpack_exports__);
 var render = function render() {
   var _vm = this,
     _c = _vm._self._c;
-  return _c("div", [_c("NavComponent"), _vm._v(" "), _c("router-view")], 1);
+  return _c("div", [_c("NavComponent", {
+    attrs: {
+      navList: _vm.nav
+    }
+  }), _vm._v(" "), _c("router-view")], 1);
 };
 var staticRenderFns = [];
 render._withStripped = true;
@@ -6744,7 +6761,7 @@ exports = module.exports = __webpack_require__(/*! ../../../node_modules/css-loa
 
 
 // module
-exports.push([module.i, "nav[data-v-152c8205] {\n  background-color: aqua;\n}\nnav li[data-v-152c8205] {\n  list-style-type: none;\n  margin-right: 1rem;\n}\nnav li a[data-v-152c8205] {\n  color: black;\n}", ""]);
+exports.push([module.i, "nav[data-v-152c8205] {\n  background-color: aqua;\n}\nnav li[data-v-152c8205] {\n  list-style-type: none;\n  margin-right: 1rem;\n  text-transform: capitalize;\n}\nnav li a[data-v-152c8205] {\n  color: black;\n}", ""]);
 
 // exports
 

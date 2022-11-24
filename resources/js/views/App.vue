@@ -1,6 +1,6 @@
 <template>
     <div>
-        <NavComponent />
+        <NavComponent :navList="nav" />
         <router-view></router-view>
     </div>
 </template>
@@ -12,6 +12,25 @@ import NavComponent from '../components/NavComponent.vue';
 
 export default {
      name:'App',
+     data() {
+        return {
+            nav:[
+                {
+                    label:'home',
+                    path: '/'
+                },
+                {
+                    label:'about',
+                    path: '/about'
+                },
+                {
+                    label:'contacts',
+                    path: '/contacts'
+                }
+
+            ]
+        }
+     },
      components: {
         PostsPage,
         NotFoundComponent,

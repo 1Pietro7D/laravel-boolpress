@@ -1,17 +1,19 @@
 <template>
   <nav>
     <ul class="d-flex gap-2">
-        <li><router-link to="/">Home</router-link></li>
-        <li><router-link to="/about">About</router-link></li>
-        <li><router-link to="/contacts">Contacts</router-link></li>
-
+        <li v-for="link,i in navList" :key="i">
+            <router-link :to="link.path">{{ link.label }}</router-link>
+        </li>
     </ul>
   </nav>
 </template>
 
 <script>
 export default {
-    name: "NavComponent"
+    name: "NavComponent",
+    props:{
+        navList: Array
+    }
 }
 </script>
 
@@ -21,6 +23,7 @@ nav{
     li{
         list-style-type:none;
         margin-right: 1rem;
+        text-transform: capitalize;
         a{
             color: black;
         }
