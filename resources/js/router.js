@@ -14,7 +14,11 @@ const router = new VueRouter({
       // dynamic segments start with a colon
       //   { path: '/', name: 'home', component: PostsPage },
       { path: '/', name: 'home', component: HomePage },
-      { path: '/posts', name: 'posts-index', component: PostsIndexPage },
+      { path: '/posts',
+        name: 'posts-index',
+        component: PostsIndexPage,
+        props: route => ({ page: route.query.page })
+     },
       { path: '/about', name: 'about', component: AboutPage },
       { path: '/contacts', name: 'contacts', component: ContactsPage },
 
