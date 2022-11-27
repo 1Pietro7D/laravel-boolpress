@@ -6,7 +6,8 @@
 </template>
 
 <script>
-import PostsPage from '../pages/PostsPage.vue';
+// import PostsPage from '../pages/PostsPage.vue';
+import PostsIndexPage from '../pages/PostsIndexPage.vue';
 import NotFoundComponent from '../pages/NotFoundComponent.vue';
 import NavComponent from '../components/NavComponent.vue';
 
@@ -18,6 +19,10 @@ export default {
                 {
                     label:'home',
                     path: '/'
+                },
+                {
+                    label:'blog',
+                    path: '/posts'
                 },
                 {
                     label:'about',
@@ -32,7 +37,8 @@ export default {
         }
      },
      components: {
-        PostsPage,
+        // PostsPage,
+        PostsIndexPage,
         NotFoundComponent,
         NavComponent
 
