@@ -2049,7 +2049,7 @@ __webpack_require__.r(__webpack_exports__);
     };
   },
   mounted: function mounted() {
-    this.loadPage('api/posts');
+    this.loadPage('api/posts?page=' + this.$route.query.page);
   },
   methods: {
     loadPage: function loadPage(url) {

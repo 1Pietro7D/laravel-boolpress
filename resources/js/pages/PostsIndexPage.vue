@@ -25,7 +25,7 @@
             }
         },
         mounted(){
-            this.loadPage('api/posts')
+            this.loadPage('api/posts?page=' + this.$route.query.page)
         },
         methods: {
             loadPage(url){
