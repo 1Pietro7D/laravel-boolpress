@@ -47,7 +47,8 @@
             },
 
             showPost(id){
-                console.log(id + "bravo")
+                console.log("showPost(id):",id)
+                this.$router.push('/posts/' + id)
             }
         },
     }
