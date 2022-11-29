@@ -21,7 +21,7 @@ class PostController extends Controller
             $posts = Post::where('id', '>', 0)->paginate(3);
             $data = [
                 'results' => $posts,
-                'success' => true
+                'success' => count($posts) > 0
             ];
         }catch(Error $e){
             $data = [
