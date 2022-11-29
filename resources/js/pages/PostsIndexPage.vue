@@ -1,7 +1,7 @@
 <template>
     <div>
         <div v-if="loading">Loading</div>
-        <div v-else-if="errorMessage != null">{{errorMessage}}</div>
+        <!-- <div v-else-if="errorMessage != null">{{errorMessage}}</div> -->
         <PostListComponent v-else :postPageList="posts"
         @clickedPost="showPost" @requestPage="loadPage" />
     </div>
@@ -20,7 +20,7 @@
             return{
                 posts:undefined,
                 detail:null,
-                errorMessage: null,
+                // errorMessage: null,
                 loading: true
             }
         },
@@ -35,7 +35,8 @@
                     if(data.success){
                         this.posts= data.results
                     }else{
-                        this.errorMessage = data.error
+                        // this.errorMessage = data.error
+                        this.$route.push({name: 'NotFound'});
                     }
                     this.loading = false;
                 })
