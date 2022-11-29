@@ -21,7 +21,7 @@ export default {
     data() {
         return{
             posts:undefined, //perchè contiene un oggetto con lista e le informazioni sulla pag di dati (pag corrente, tot pag)
-            detail:null,
+            detail:undefined,
             errorMessage: null,
             loading: true
         }
