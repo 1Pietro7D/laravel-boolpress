@@ -60,7 +60,8 @@ export default {
                 console.log('errore', e);
                 this.loading = false;
             })
-            },
+        },
+
         returnList(confirm){
             if (confirm) {
                 this.detail= null;
