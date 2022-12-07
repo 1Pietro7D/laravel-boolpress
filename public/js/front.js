@@ -2034,7 +2034,36 @@ __webpack_require__.r(__webpack_exports__);
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony default export */ __webpack_exports__["default"] = ({
-  name: 'PostShowPage'
+  name: 'PostShowPage',
+  data: function data() {
+    return {
+      post: undefined,
+      loading: true
+    };
+  },
+  mounted: function mounted() {
+    var id = this.$route.params.id;
+    this.loadPage('api/posts/' + id);
+  },
+  methods: {
+    loadPage: function loadPage(url) {
+      var _this = this;
+      axios.get(url).then(function (_ref) {
+        var data = _ref.data;
+        if (data.success) {
+          _this.post = data.result;
+          _this.loading = false;
+        } else {
+          _this.$route.push({
+            name: 'NotFound'
+          });
+        }
+      })["catch"](function (e) {
+        console.log('errore', e);
+        _this.loading = false;
+      });
+    }
+  }
 });
 
 /***/ }),
@@ -2330,7 +2359,11 @@ __webpack_require__.r(__webpack_exports__);
 var render = function render() {
   var _vm = this,
     _c = _vm._self._c;
-  return _c("div", [_vm._v("det")]);
+  return _vm.loading ? _c("div", [_vm._v("Loading")]) : _c("div", [_c("h1", [_vm._v("Title: " + _vm._s(_vm.post.title))]), _vm._v(" "), _c("div", [_vm._v("Content: " + _vm._s(_vm.post.content))]), _vm._v(" "), _c("div", [_vm._v("Tags:"), _vm._l(_vm.post.tags, function (tag) {
+    return _c("span", {
+      key: tag.id
+    }, [_vm._v(_vm._s(tag.name))]);
+  })], 2), _vm._v(" "), _c("div", [_vm._v("Category:" + _vm._s(_vm.post.category.name))])]);
 };
 var staticRenderFns = [];
 render._withStripped = true;
