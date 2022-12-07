@@ -21,7 +21,7 @@ const router = new VueRouter({
         props: route => ({ page: route.query.page })
       },
       {// :id dynamic parameter
-      path: '/posts/:id',
+      path: '/posts/:slug',
       name: 'posts-show',
       component: PostShowPage,
       props: route => ({ page: route.query.page })

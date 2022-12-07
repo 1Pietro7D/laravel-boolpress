@@ -18,8 +18,9 @@ export default {
         }
     },
     mounted(){
-        const id = this.$route.params.id;
-        this.loadPage('api/posts/' + id);
+        const slug = this.$route.params.slug;
+        console.log(slug);
+        this.loadPage('api/posts/' + slug);
     },
     methods: {
         loadPage(url){

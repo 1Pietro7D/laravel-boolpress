@@ -46,9 +46,9 @@
                     })
             },
 
-            showPost(id){
-                console.log("showPost(id):",id)
-                this.$router.push('/posts/' + id)
+            showPost(slug){
+                console.log("showPost(slug):",slug)
+                this.$router.push('/posts/' + slug)
             }
         },
     }

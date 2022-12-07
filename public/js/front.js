@@ -1945,8 +1945,8 @@ __webpack_require__.r(__webpack_exports__);
     postPageList: Object
   },
   methods: {
-    showPost: function showPost(id) {
-      this.$emit('clickedPost', id);
+    showPost: function showPost(slug) {
+      this.$emit('clickedPost', slug);
     },
     goToPage: function goToPage(url, pageNumber) {
       if (url) {
@@ -2042,8 +2042,9 @@ __webpack_require__.r(__webpack_exports__);
     };
   },
   mounted: function mounted() {
-    var id = this.$route.params.id;
-    this.loadPage('api/posts/' + id);
+    var slug = this.$route.params.slug;
+    console.log(slug);
+    this.loadPage('api/posts/' + slug);
   },
   methods: {
     loadPage: function loadPage(url) {
@@ -2115,9 +2116,9 @@ __webpack_require__.r(__webpack_exports__);
         _this.loading = false;
       });
     },
-    showPost: function showPost(id) {
-      console.log("showPost(id):", id);
-      this.$router.push('/posts/' + id);
+    showPost: function showPost(slug) {
+      console.log("showPost(slug):", slug);
+      this.$router.push('/posts/' + slug);
     }
   }
 });
@@ -2217,11 +2218,11 @@ var render = function render() {
     _c = _vm._self._c;
   return _vm.postList.length > 0 ? _c("div", [_vm._l(_vm.postList, function (post) {
     return _c("div", {
-      key: post.id
+      key: post.slug
     }, [_c("span", {
       on: {
         click: function click($event) {
-          return _vm.showPost(post.id);
+          return _vm.showPost(post.slug);
         }
       }
     }, [_vm._v(_vm._s(post.title))])]);
@@ -54634,7 +54635,7 @@ var router = new vue_router__WEBPACK_IMPORTED_MODULE_1__["default"]({
     }
   }, {
     // :id dynamic parameter
-    path: '/posts/:id',
+    path: '/posts/:slug',
     name: 'posts-show',
     component: _pages_PostShowPage__WEBPACK_IMPORTED_MODULE_3__["default"],
     props: function props(route) {

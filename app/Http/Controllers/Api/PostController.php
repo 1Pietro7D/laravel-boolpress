@@ -56,14 +56,14 @@ class PostController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param  int  $id
+     * @param  int  $slug
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public function show($slug)
     {
         //
-        // $post = Post::find($id)->with(['tags', 'category'])->first();
-        $post = Post::where('id', $id)->with(['tags', 'category'])->first();
+        // $post = Post::find($slug)->with(['tags', 'category'])->first();
+        $post = Post::where('slug', $slug)->with(['tags', 'category'])->first();
 
         $data=[
             'result' => $post,

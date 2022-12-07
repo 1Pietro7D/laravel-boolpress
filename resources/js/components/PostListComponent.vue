@@ -1,7 +1,7 @@
 <template>
   <div v-if="postList.length>0">
-    <div v-for="post in postList" :key="post.id">
-        <span @click="showPost(post.id)" >{{ post.title }}</span>
+    <div v-for="post in postList" :key="post.slug">
+        <span @click="showPost(post.slug)" >{{ post.title }}</span>
     </div>
     <!-- controller page -->
     <div class="my-2">
@@ -38,8 +38,8 @@ export default {
         postPageList: Object
     },
     methods: {
-        showPost(id){
-           this.$emit('clickedPost', id)
+        showPost(slug){
+           this.$emit('clickedPost', slug)
         },
         goToPage(url, pageNumber){
             if (url) {
